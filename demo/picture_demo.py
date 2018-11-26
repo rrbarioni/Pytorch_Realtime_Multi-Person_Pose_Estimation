@@ -3,6 +3,7 @@ import re
 import sys
 
 import sys,os
+sys.path.append('')
 sys.path.append(os.path.realpath('..'))
 
 import cv2
