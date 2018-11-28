@@ -70,4 +70,5 @@ def putVecMaps(centerA, centerB, accumulate_vec_map, count, params_transform):
     accumulate_vec_map = np.divide(accumulate_vec_map, count[:, :, np.newaxis])
     count[mask == True] = 0
 
+    print('return accumulate_vec_map, count')
     return accumulate_vec_map, count
