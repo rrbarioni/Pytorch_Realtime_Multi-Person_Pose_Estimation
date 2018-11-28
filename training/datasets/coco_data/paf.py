@@ -51,15 +51,18 @@ def putVecMaps(centerA, centerB, accumulate_vec_map, count, params_transform):
     mask = limb_width < thre  # mask is 2D
 
     vec_map = np.copy(accumulate_vec_map) * 0.0
-    print('np.newaxis: ' + np.newaxis)
-    vec_map[yy, xx] = np.repeat(mask[:, :, np.newaxis], 2, axis=2)
-    vec_map[yy, xx] *= limb_vec_unit[np.newaxis, np.newaxis, :]
+    # vec_map[yy, xx] = np.repeat(mask[:, :, np.newaxis], 2, axis=2)
+    # vec_map[yy, xx] *= limb_vec_unit[np.newaxis, np.newaxis, :]
+    vec_map[yy, xx] = np.repeat(mask[:, :, :], 2, axis=2)
+    vec_map[yy, xx] *= limb_vec_unit[:, :, :]
 
     mask = np.logical_or.reduce(
         (np.abs(vec_map[:, :, 0]) > 0, np.abs(vec_map[:, :, 1]) > 0))
 
+    # accumulate_vec_map = np.multiply(
+    #     accumulate_vec_map, count[:, :, np.newaxis])
     accumulate_vec_map = np.multiply(
-        accumulate_vec_map, count[:, :, np.newaxis])
+        accumulate_vec_map, count[:, :, :])
     accumulate_vec_map += vec_map
     count[mask == True] += 1
 
@@ -67,7 +70,8 @@ def putVecMaps(centerA, centerB, accumulate_vec_map, count, params_transform):
 
     count[mask == True] = 1
 
-    accumulate_vec_map = np.divide(accumulate_vec_map, count[:, :, np.newaxis])
+    # accumulate_vec_map = np.divide(accumulate_vec_map, count[:, :, np.newaxis])
+    accumulate_vec_map = np.divide(accumulate_vec_map, count[:, :, :])
     count[mask == True] = 0
 
     return accumulate_vec_map, count
