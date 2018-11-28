@@ -27,7 +27,15 @@ from evaluate.coco_eval import get_multiplier, get_outputs, handle_paf_and_heat
 weight_name = './network/weight/pose_model.pth'
 
 model = get_model('vgg19')     
-model.load_state_dict(torch.load(weight_name))
+
+# model.load_state_dict(torch.load(weight_name))
+state_dict = torch.load(weight_name)
+new_state_dict = OrderedDict()
+for k, v in state_dict.items():
+    name = k[7:] # remove `module.`
+    new_state_dict[name] = v
+model.load_state_dict(new_state_dict)
+
 model = torch.nn.DataParallel(model).cuda()
 model.float()
 model.eval()
