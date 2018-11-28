@@ -223,13 +223,17 @@ class Cocokeypoints(Dataset):
         img = cv2.imread(os.path.join(self.root, self.data[idx]['img_paths']))
         img_idx = self.data[idx]['img_paths'][-16:-3]
 #        print img.shape
+        mask_miss = None
         if "COCO_val" in self.data[idx]['dataset']:
             mask_miss = cv2.imread(
-                self.mask_dir + 'mask2014/val2014_mask_miss_' + img_idx + 'png', 0)
+                self.mask_dir + 'mask2014/mask_COCO_val2014_' + img_idx + 'jpg', 0)
         elif "COCO" in self.data[idx]['dataset']:
             mask_miss = cv2.imread(
-                self.mask_dir + 'mask2014/train2014_mask_miss_' + img_idx + 'png', 0)
+                self.mask_dir + 'mask2014/mask_COCO_train2014_' + img_idx + 'jpg', 0)
 #        print self.root + 'mask2014/val2014_mask_miss_' + img_idx + 'png'
+        if mask_miss is None:
+            mask_miss = np.ones((1, 1))
+
         meta_data = self.get_anno(self.data[idx])
 
         meta_data = self.add_neck(meta_data)
