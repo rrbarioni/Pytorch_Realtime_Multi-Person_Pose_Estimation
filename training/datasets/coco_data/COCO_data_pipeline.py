@@ -160,7 +160,10 @@ class Cocokeypoints(Dataset):
         heatmaps = np.zeros((int(grid_y), int(grid_x), 19))
         pafs = np.zeros((int(grid_y), int(grid_x), 38))
 
-        mask_miss = cv2.resize(mask_miss, (0, 0), fx=1.0 / stride, fy=1.0 /
+        if mask_miss is None:
+            mask_miss = np.ones((1, 1))
+        # mask_miss = cv2.resize(mask_miss, (0, 0), fx=1.0 / stride, fy=1.0 /
+        mask_miss = cv2.resize(mask_miss, (int(grid_y), int(grid_x)), fx=1.0 / stride, fy=1.0 /
                                stride, interpolation=cv2.INTER_CUBIC).astype(
             np.float32)
         mask_miss = mask_miss / 255.
@@ -231,26 +234,24 @@ class Cocokeypoints(Dataset):
             mask_miss = cv2.imread(
                 self.mask_dir + 'mask2014/mask_COCO_train2014_' + img_idx + 'jpg', 0)
 #        print self.root + 'mask2014/val2014_mask_miss_' + img_idx + 'png'
-        if mask_miss is None:
-            mask_miss = np.ones((1, 1))
-
         meta_data = self.get_anno(self.data[idx])
 
         meta_data = self.add_neck(meta_data)
 
-        meta_data, img, mask_miss = aug_scale(
-            meta_data, img, mask_miss, self.params_transform)
+        if mask_miss is not None:
+            meta_data, img, mask_miss = aug_scale(
+                meta_data, img, mask_miss, self.params_transform)
 
-        meta_data, img, mask_miss = aug_rotate(
-            meta_data, img, mask_miss, self.params_transform)
+            meta_data, img, mask_miss = aug_rotate(
+                meta_data, img, mask_miss, self.params_transform)
 
-        meta_data, img, mask_miss = aug_croppad(
-            meta_data, img, mask_miss, self.params_transform)
+            meta_data, img, mask_miss = aug_croppad(
+                meta_data, img, mask_miss, self.params_transform)
 
-        meta_data, img, mask_miss = aug_flip(
-            meta_data, img, mask_miss, self.params_transform)
+            meta_data, img, mask_miss = aug_flip(
+                meta_data, img, mask_miss, self.params_transform)
 
-        meta_data = self.remove_illegal_joint(meta_data)
+            meta_data = self.remove_illegal_joint(meta_data)
 
         heat_mask, heatmaps, paf_mask, pafs = self.get_ground_truth(
             meta_data, mask_miss)
