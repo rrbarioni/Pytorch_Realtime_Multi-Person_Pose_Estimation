@@ -1,6 +1,11 @@
 import os
 import re
 import sys
+
+sys.path.append('')
+sys.path.append('..')
+sys.path.append(os.path.realpath('..'))
+
 import cv2
 import math
 import time
