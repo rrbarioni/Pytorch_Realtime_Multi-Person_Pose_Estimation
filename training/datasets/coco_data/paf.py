@@ -27,8 +27,12 @@ def putVecMaps(centerA, centerB, accumulate_vec_map, count, params_transform):
     grid_y = crop_size_y / stride
     grid_x = crop_size_x / stride
     thre = params_transform['limb_width']   # limb width
-    centerB = centerB / stride
-    centerA = centerA / stride
+    # centerB = centerB / stride
+    # centerA = centerA / stride
+    centerA[0] *= grid_x
+    centerA[1] *= grid_y
+    centerB[0] *= grid_x
+    centerB[1] *= grid_y
 
     limb_vec = centerB - centerA
     norm = np.linalg.norm(limb_vec)

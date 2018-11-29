@@ -27,6 +27,8 @@ def putGaussianMaps(center, accumulate_confid_map, params_transform):
 
     grid_y = crop_size_y / stride
     grid_x = crop_size_x / stride
+    center[0] *= grid_x
+    center[1] *= grid_y
     start = stride / 2.0 - 0.5
     y_range = [i for i in range(int(grid_y))]
     x_range = [i for i in range(int(grid_x))]
