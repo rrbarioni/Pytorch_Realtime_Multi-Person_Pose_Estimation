@@ -19,7 +19,7 @@ def putVecMaps(centerA, centerB, accumulate_vec_map, count, params_transform):
     print('putVecMaps:')
     centerA = centerA.astype(float)
     centerB = centerB.astype(float)
-    print('  centerA: %s, centerB: %s' % (centerA, centerB))
+    # print('  centerA: %s, centerB: %s' % (centerA, centerB))
 
     stride = params_transform['stride']
     crop_size_y = params_transform['crop_size_y']
@@ -47,10 +47,6 @@ def putVecMaps(centerA, centerB, accumulate_vec_map, count, params_transform):
     print('  min_x: %s, max_x: %s, min_y: %s, max_y: %s' % (int(min_x), int(max_x), int(min_y), int(max_y)))
     range_x = list(range(int(min_x), int(max_x), 1))
     range_y = list(range(int(min_y), int(max_y), 1))
-    if range_x == []:
-        range_x = [int(min_x)]
-    if range_y == []:
-        range_y = [int(min_y)]
     xx, yy = np.meshgrid(range_x, range_y)
     ba_x = xx - centerA[0]  # the vector from (x,y) to centerA
     ba_y = yy - centerA[1]

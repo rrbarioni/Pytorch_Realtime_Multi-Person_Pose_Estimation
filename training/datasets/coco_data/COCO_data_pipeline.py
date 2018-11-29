@@ -176,12 +176,16 @@ class Cocokeypoints(Dataset):
         for i in range(18):
             if (meta['joint_self'][i, 2] <= 1):
                 center = meta['joint_self'][i, :2]
+                center[0] /= meta['img_height']
+                center[1] /= meta['img_width']
                 gaussian_map = heatmaps[:, :, i]
                 heatmaps[:, :, i] = putGaussianMaps(
                     center, gaussian_map, params_transform=self.params_transform)
             for j in range(nop):
                 if (meta['joint_others'][j, i, 2] <= 1):
                     center = meta['joint_others'][j, i, :2]
+                    center[0] /= meta['img_height']
+                    center[1] /= meta['img_width']
                     gaussian_map = heatmaps[:, :, i]
                     heatmaps[:, :, i] = putGaussianMaps(
                         center, gaussian_map, params_transform=self.params_transform)
@@ -200,6 +204,10 @@ class Cocokeypoints(Dataset):
             if (meta['joint_self'][mid_1[i] - 1, 2] <= 1 and meta['joint_self'][mid_2[i] - 1, 2] <= 1):
                 centerA = meta['joint_self'][mid_1[i] - 1, :2]
                 centerB = meta['joint_self'][mid_2[i] - 1, :2]
+                centerA[0] /= meta['img_height']
+                centerA[1] /= meta['img_width']
+                centerB[0] /= meta['img_height']
+                centerB[1] /= meta['img_width']
                 vec_map = pafs[:, :, 2 * i:2 * i + 2]
                 #                    print vec_map.shape
                 pafs[:, :, 2 * i:2 * i + 2], count = putVecMaps(centerA=centerA,
@@ -210,6 +218,10 @@ class Cocokeypoints(Dataset):
                 if (meta['joint_others'][j, mid_1[i] - 1, 2] <= 1 and meta['joint_others'][j, mid_2[i] - 1, 2] <= 1):
                     centerA = meta['joint_others'][j, mid_1[i] - 1, :2]
                     centerB = meta['joint_others'][j, mid_2[i] - 1, :2]
+                    centerA[0] /= meta['img_height']
+                    centerA[1] /= meta['img_width']
+                    centerB[0] /= meta['img_height']
+                    centerB[1] /= meta['img_width']
                     vec_map = pafs[:, :, 2 * i:2 * i + 2]
                     pafs[:, :, 2 * i:2 * i + 2], count = putVecMaps(centerA=centerA,
                                                                     centerB=centerB,
