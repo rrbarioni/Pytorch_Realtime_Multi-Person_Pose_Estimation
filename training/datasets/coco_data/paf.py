@@ -18,10 +18,10 @@ from scipy import misc, ndimage
 def putVecMaps(centerA, centerB, accumulate_vec_map, count, params_transform):
     centerA = centerA.astype(float)
     centerB = centerB.astype(float)
-    print('stride: %S' & stride)
-    print('centerA: %s, centerB: %s' % (centerA, centerB))
 
     stride = params_transform['stride']
+    print('stride: %s' & stride)
+    print('centerA: %s, centerB: %s' % (centerA, centerB))
     crop_size_y = params_transform['crop_size_y']
     crop_size_x = params_transform['crop_size_x']
     grid_y = crop_size_y / stride
