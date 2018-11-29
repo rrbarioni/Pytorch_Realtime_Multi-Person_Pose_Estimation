@@ -18,10 +18,12 @@ from scipy import misc, ndimage
 
 
 def putGaussianMaps(center, accumulate_confid_map, params_transform):
+    print('putGaussianMaps:')
     crop_size_y = params_transform['crop_size_y']
     crop_size_x = params_transform['crop_size_x']
     stride = params_transform['stride']
     sigma = params_transform['sigma']
+    print('  center: %s' % center)
 
     grid_y = crop_size_y / stride
     grid_x = crop_size_x / stride

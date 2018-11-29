@@ -16,12 +16,12 @@ from scipy import misc, ndimage
 
 
 def putVecMaps(centerA, centerB, accumulate_vec_map, count, params_transform):
+    print('putVecMaps:')
     centerA = centerA.astype(float)
     centerB = centerB.astype(float)
+    print('  centerA: %s, centerB: %s' % (centerA, centerB))
 
     stride = params_transform['stride']
-    print('stride: %s' % stride)
-    print('centerA: %s, centerB: %s' % (centerA, centerB))
     crop_size_y = params_transform['crop_size_y']
     crop_size_x = params_transform['crop_size_x']
     grid_y = crop_size_y / stride
@@ -44,7 +44,7 @@ def putVecMaps(centerA, centerB, accumulate_vec_map, count, params_transform):
     min_y = max(int(round(min(centerA[1], centerB[1]) - thre)), 0)
     max_y = min(int(round(max(centerA[1], centerB[1]) + thre)), grid_y)
 
-    print('min_x: %s, max_x: %s, min_y: %s, max_y: %s' % (int(min_x), int(max_x), int(min_y), int(max_y)))
+    print('  min_x: %s, max_x: %s, min_y: %s, max_y: %s' % (int(min_x), int(max_x), int(min_y), int(max_y)))
     range_x = list(range(int(min_x), int(max_x), 1))
     range_y = list(range(int(min_y), int(max_y), 1))
     if range_x == []:
@@ -58,17 +58,6 @@ def putVecMaps(centerA, centerB, accumulate_vec_map, count, params_transform):
     mask = limb_width < thre  # mask is 2D
 
     vec_map = np.copy(accumulate_vec_map) * 0.0
-    # print('xx.shape: ' + str(xx.shape))
-    # print('yy.shape: ' + str(yy.shape))
-    # print('mask[:, :].shape: ' + str(mask[:, :].shape))
-    # print('mask[:, :, np.newaxis].shape: ' + str(mask[:, :, np.newaxis].shape))
-    # print('vec_map[yy, xx].shape: ' + str(vec_map[yy, xx].shape))
-    # print('xx.tolist(): ' + str(xx.tolist()))
-    # print('yy.tolist(): ' + str(yy.tolist()))
-    # if xx.flatten().tolist() == []:
-    #     xx = xx.flatten()
-    # if yy.flatten().tolist() == []:
-    #     yy = yy.flatten()
     vec_map[yy, xx] = np.repeat(mask[:, :, np.newaxis], 2, axis=2)
     vec_map[yy, xx] *= limb_vec_unit[np.newaxis, np.newaxis, :]
 
