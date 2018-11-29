@@ -45,9 +45,9 @@ def putVecMaps(centerA, centerB, accumulate_vec_map, count, params_transform):
     range_x = list(range(int(min_x), int(max_x), 1))
     range_y = list(range(int(min_y), int(max_y), 1))
     if range_x == []:
-        range_x = [min_x]
+        range_x = [int(min_x)]
     if range_y == []:
-        range_y = [min_y]
+        range_y = [int(min_y)]
     xx, yy = np.meshgrid(range_x, range_y)
     ba_x = xx - centerA[0]  # the vector from (x,y) to centerA
     ba_y = yy - centerA[1]
