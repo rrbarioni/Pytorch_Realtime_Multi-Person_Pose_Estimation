@@ -42,7 +42,8 @@ def putVecMaps(centerA, centerB, accumulate_vec_map, count, params_transform):
     min_y = max(int(round(min(centerA[1], centerB[1]) - thre)), 0)
     max_y = min(int(round(max(centerA[1], centerB[1]) + thre)), grid_y)
 
-    print('%s, %s, %s, %s' % (int(min_x), int(max_x), int(min_y), int(max_y)))
+    print('grid_x: %s, grid_y: %s' % (grid_x, grid_y))
+    print('min_x: %s, max_x: %s, min_y: %s, max_y: %s' % (int(min_x), int(max_x), int(min_y), int(max_y)))
     range_x = list(range(int(min_x), int(max_x), 1))
     range_y = list(range(int(min_y), int(max_y), 1))
     if range_x == []:
