@@ -44,6 +44,10 @@ def putVecMaps(centerA, centerB, accumulate_vec_map, count, params_transform):
 
     range_x = list(range(int(min_x), int(max_x), 1))
     range_y = list(range(int(min_y), int(max_y), 1))
+    if range_x == []:
+        range_x = [min_x]
+    if range_y == []:
+        range_y = [min_y]
     xx, yy = np.meshgrid(range_x, range_y)
     ba_x = xx - centerA[0]  # the vector from (x,y) to centerA
     ba_y = yy - centerA[1]
@@ -56,12 +60,12 @@ def putVecMaps(centerA, centerB, accumulate_vec_map, count, params_transform):
     # print('mask[:, :].shape: ' + str(mask[:, :].shape))
     # print('mask[:, :, np.newaxis].shape: ' + str(mask[:, :, np.newaxis].shape))
     # print('vec_map[yy, xx].shape: ' + str(vec_map[yy, xx].shape))
-    print('xx.tolist(): ' + str(xx.tolist()))
-    print('yy.tolist(): ' + str(yy.tolist()))
-    if xx.flatten().tolist() == []:
-        xx = xx.flatten()
-    if yy.flatten().tolist() == []:
-        yy = yy.flatten()
+    # print('xx.tolist(): ' + str(xx.tolist()))
+    # print('yy.tolist(): ' + str(yy.tolist()))
+    # if xx.flatten().tolist() == []:
+    #     xx = xx.flatten()
+    # if yy.flatten().tolist() == []:
+    #     yy = yy.flatten()
     vec_map[yy, xx] = np.repeat(mask[:, :, np.newaxis], 2, axis=2)
     vec_map[yy, xx] *= limb_vec_unit[np.newaxis, np.newaxis, :]
 
