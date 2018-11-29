@@ -54,8 +54,8 @@ def putVecMaps(centerA, centerB, accumulate_vec_map, count, params_transform):
     print(vec_map.shape)
     print(xx.shape)
     print(yy.shape)
-    xx = np.flatten(xx)
-    yy = np.flatten(yy)
+    xx = xx.flatten()
+    yy = yy.flatten()
     vec_map[yy, xx] = np.repeat(mask[:, :, np.newaxis], 2, axis=2)
     vec_map[yy, xx] *= limb_vec_unit[np.newaxis, np.newaxis, :]
 
