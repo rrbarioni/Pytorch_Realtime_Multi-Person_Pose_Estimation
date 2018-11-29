@@ -34,7 +34,7 @@ def putVecMaps(centerA, centerB, accumulate_vec_map, count, params_transform):
         # print 'limb is too short, ignore it...'
         return accumulate_vec_map, count
     limb_vec_unit = limb_vec / norm
-    print('limb unit vector: {}'.format(limb_vec_unit))
+    # print('limb unit vector: {}'.format(limb_vec_unit))
 
     # To make sure not beyond the border of this two points
     min_x = max(int(round(min(centerA[0], centerB[0]) - thre)), 0)
@@ -58,9 +58,9 @@ def putVecMaps(centerA, centerB, accumulate_vec_map, count, params_transform):
     # print('vec_map[yy, xx].shape: ' + str(vec_map[yy, xx].shape))
     print('xx.tolist(): ' + str(xx.tolist()))
     print('yy.tolist(): ' + str(yy.tolist()))
-    if xx.tolist() == [[]]:
+    if xx.flatten().tolist() == []:
         xx = xx.flatten()
-    if yy.tolist() == [[]]:
+    if yy.flatten().tolist() == []:
         yy = yy.flatten()
     vec_map[yy, xx] = np.repeat(mask[:, :, np.newaxis], 2, axis=2)
     vec_map[yy, xx] *= limb_vec_unit[np.newaxis, np.newaxis, :]
