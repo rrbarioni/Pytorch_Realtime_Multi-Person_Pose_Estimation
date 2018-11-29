@@ -20,7 +20,7 @@ def putVecMaps(centerA, centerB, accumulate_vec_map, count, params_transform):
     centerB = centerB.astype(float)
 
     stride = params_transform['stride']
-    print('stride: %s' & stride)
+    print('stride: %s' % stride)
     print('centerA: %s, centerB: %s' % (centerA, centerB))
     crop_size_y = params_transform['crop_size_y']
     crop_size_x = params_transform['crop_size_x']
